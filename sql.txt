@@ -1,0 +1,274 @@
+1---create table 
+ ------syntax----create table emp(empid int(11),empname varchar(200),empno bigint(12),empdate date);
+ 
+ 
+2-----insert values in table 
+---------- syntax--- insert into emp values(1,"karan",9011550940,"2023-05-22");
+                 ---insert into emp values(2,"sham",9850732569,"2023-04-26");
+				 
+3. create database ajanta;
+4. desc emp;
+5. joins---
+---------select * from emp;----------
++-------+---------+------------+----------+--------+
+| empid | empname | empno      | subject  | salary |
++-------+---------+------------+----------+--------+
+|     1 | karan   | 9921653042 | maths    |   1000 |
+|     2 | eam     | 8149437408 | marathi  |   2000 |
+|     3 | sham    | 8520124596 | hindi    |   3000 |
+|     4 | jon     | 7845129663 | english  |   4000 |
+|     5 | kevu    | 1245464875 | sanskrit |   5000 |
++-------+---------+------------+----------+--------+
+
+-------------------select * from emp2;----------------------
++-------+----------------------+------------+-------------+
+| empid | empprofile           | empcountry | empjoindate |
++-------+----------------------+------------+-------------+
+|     1 | production engineer  | india      | 2023-05-23  |
+|     2 | production head      | america    | 2023-02-23  |
+|     3 | development engineer | dubai      | 2021-04-20  |
+|     4 | hr                   | iran       | 2020-06-25  |
+|     8 | npd                  | kuwait     | 2019-10-18  |
+|    11 | data entry           | dubai      | 2019-08-22  |
++-------+----------------------+------------+-------------+
+
+
+ -------syntax----inner join ----
+ ------------------select * from emp inner join emp2 on emp.empid=emp2.empid;
+ --------------it don't show not matching and null values
+ 
++-------+---------+------------+---------+--------+-------+----------------------+------------+-------------+
+| empid | empname | empno      | subject | salary | empid | empprofile           | empcountry | empjoindate |
++-------+---------+------------+---------+--------+-------+----------------------+------------+-------------+
+|     1 | karan   | 9921653042 | maths   |   1000 |     1 | production engineer  | india      | 2023-05-23  |
+|     2 | eam     | 8149437408 | marathi |   2000 |     2 | production head      | america    | 2023-02-23  |
+|     3 | sham    | 8520124596 | hindi   |   3000 |     3 | development engineer | dubai      | 2021-04-20  |
+|     4 | jon     | 7845129663 | english |   4000 |     4 | hr                   | iran       | 2020-06-25  |
++-------+---------+------------+---------+--------+-------+----------------------+------------+-------------+
+
+ -----------------right join--------------------------------------------------------
+  -----------------select * from emp right join emp2 on emp.empid=emp2.empid;
++-------+---------+------------+---------+--------+-------+----------------------+------------+-------------+
+| empid | empname | empno      | subject | salary | empid | empprofile           | empcountry | empjoindate |
++-------+---------+------------+---------+--------+-------+----------------------+------------+-------------+
+|     1 | karan   | 9921653042 | maths   |   1000 |     1 | production engineer  | india      | 2023-05-23  |
+|     2 | eam     | 8149437408 | marathi |   2000 |     2 | production head      | america    | 2023-02-23  |
+|     3 | sham    | 8520124596 | hindi   |   3000 |     3 | development engineer | dubai      | 2021-04-20  |
+|     4 | jon     | 7845129663 | english |   4000 |     4 | hr                   | iran       | 2020-06-25  |
+|  NULL | NULL    |       NULL | NULL    |   NULL |     8 | npd                  | kuwait     | 2019-10-18  |
+|  NULL | NULL    |       NULL | NULL    |   NULL |    11 | data entry           | dubai      | 2019-08-22  |
++-------+---------+------------+---------+--------+-------+----------------------+------------+-------------+
+
+-------------------------------left join--------------------------------------------
+mysql> select * from emp left join emp2 on emp.empid=emp2.empid;
++-------+---------+------------+----------+--------+-------+----------------------+------------+-------------+
+| empid | empname | empno      | subject  | salary | empid | empprofile           | empcountry | empjoindate |
++-------+---------+------------+----------+--------+-------+----------------------+------------+-------------+
+|     1 | karan   | 9921653042 | maths    |   1000 |     1 | production engineer  | india      | 2023-05-23  |
+|     2 | eam     | 8149437408 | marathi  |   2000 |     2 | production head      | america    | 2023-02-23  |
+|     3 | sham    | 8520124596 | hindi    |   3000 |     3 | development engineer | dubai      | 2021-04-20  |
+|     4 | jon     | 7845129663 | english  |   4000 |     4 | hr                   | iran       | 2020-06-25  |
+|     5 | kevu    | 1245464875 | sanskrit |   5000 |  NULL | NULL                 | NULL       | NULL        |
++-------+---------+------------+----------+--------+-------+----------------------+------------+-------------+
+
+-------------------------------------cross join----------------------------------------------
+mysql>  select * from emp cross join emp2 on emp.empid=emp2.empid;
++-------+---------+------------+---------+--------+-------+----------------------+------------+-------------+
+| empid | empname | empno      | subject | salary | empid | empprofile           | empcountry | empjoindate |
++-------+---------+------------+---------+--------+-------+----------------------+------------+-------------+
+|     1 | karan   | 9921653042 | maths   |   1000 |     1 | production engineer  | india      | 2023-05-23  |
+|     2 | eam     | 8149437408 | marathi |   2000 |     2 | production head      | america    | 2023-02-23  |
+|     3 | sham    | 8520124596 | hindi   |   3000 |     3 | development engineer | dubai      | 2021-04-20  |
+|     4 | jon     | 7845129663 | english |   4000 |     4 | hr                   | iran       | 2020-06-25  |
++-------+---------+------------+---------+--------+-------+----------------------+------------+-------------+
+
+
+
+-----------------------------------------self join-------------------------------------------
+
+mysql> select * from emp self join emp on emp.empid=emp.empid;
++-------+---------+------------+----------+--------+-------+---------+------------+----------+--------+
+| empid | empname | empno      | subject  | salary | empid | empname | empno      | subject  | salary |
++-------+---------+------------+----------+--------+-------+---------+------------+----------+--------+
+|     1 | karan   | 9921653042 | maths    |   1000 |     1 | karan   | 9921653042 | maths    |   1000 |
+|     2 | eam     | 8149437408 | marathi  |   2000 |     1 | karan   | 9921653042 | maths    |   1000 |
+|     3 | sham    | 8520124596 | hindi    |   3000 |     1 | karan   | 9921653042 | maths    |   1000 |
+|     4 | jon     | 7845129663 | english  |   4000 |     1 | karan   | 9921653042 | maths    |   1000 |
+|     5 | kevu    | 1245464875 | sanskrit |   5000 |     1 | karan   | 9921653042 | maths    |   1000 |
+|     1 | karan   | 9921653042 | maths    |   1000 |     2 | eam     | 8149437408 | marathi  |   2000 |
+|     2 | eam     | 8149437408 | marathi  |   2000 |     2 | eam     | 8149437408 | marathi  |   2000 |
+|     3 | sham    | 8520124596 | hindi    |   3000 |     2 | eam     | 8149437408 | marathi  |   2000 |
+|     4 | jon     | 7845129663 | english  |   4000 |     2 | eam     | 8149437408 | marathi  |   2000 |
+|     5 | kevu    | 1245464875 | sanskrit |   5000 |     2 | eam     | 8149437408 | marathi  |   2000 |
+|     1 | karan   | 9921653042 | maths    |   1000 |     3 | sham    | 8520124596 | hindi    |   3000 |
+|     2 | eam     | 8149437408 | marathi  |   2000 |     3 | sham    | 8520124596 | hindi    |   3000 |
+|     3 | sham    | 8520124596 | hindi    |   3000 |     3 | sham    | 8520124596 | hindi    |   3000 |
+|     4 | jon     | 7845129663 | english  |   4000 |     3 | sham    | 8520124596 | hindi    |   3000 |
+|     5 | kevu    | 1245464875 | sanskrit |   5000 |     3 | sham    | 8520124596 | hindi    |   3000 |
+|     1 | karan   | 9921653042 | maths    |   1000 |     4 | jon     | 7845129663 | english  |   4000 |
+|     2 | eam     | 8149437408 | marathi  |   2000 |     4 | jon     | 7845129663 | english  |   4000 |
+|     3 | sham    | 8520124596 | hindi    |   3000 |     4 | jon     | 7845129663 | english  |   4000 |
+|     4 | jon     | 7845129663 | english  |   4000 |     4 | jon     | 7845129663 | english  |   4000 |
+|     5 | kevu    | 1245464875 | sanskrit |   5000 |     4 | jon     | 7845129663 | english  |   4000 |
+|     1 | karan   | 9921653042 | maths    |   1000 |     5 | kevu    | 1245464875 | sanskrit |   5000 |
+|     2 | eam     | 8149437408 | marathi  |   2000 |     5 | kevu    | 1245464875 | sanskrit |   5000 |
+|     3 | sham    | 8520124596 | hindi    |   3000 |     5 | kevu    | 1245464875 | sanskrit |   5000 |
+|     4 | jon     | 7845129663 | english  |   4000 |     5 | kevu    | 1245464875 | sanskrit |   5000 |
+|     5 | kevu    | 1245464875 | sanskrit |   5000 |     5 | kevu    | 1245464875 | sanskrit |   5000 |
++-------+---------+------------+----------+--------+-------+---------+------------+----------+--------+
+25 rows in set (0.00 sec)
+
+
+
+
+--------------------------alter table-------------------------
+lter table emp add status varchar(20);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++-------+---------+------------+----------+--------+--------+
+| empid | empname | empno      | subject  | salary | status |
++-------+---------+------------+----------+--------+--------+
+|     1 | karan   | 9921653042 | maths    |   1000 | NULL   |
+|     2 | eam     | 8149437408 | marathi  |   2000 | NULL   |
+|     3 | sham    | 8520124596 | hindi    |   3000 | NULL   |
+|     4 | jon     | 7845129663 | english  |   4000 | NULL   |
+|     5 | kevu    | 1245464875 | sanskrit |   5000 | NULL   |
++-------+---------+------------+----------+--------+--------+
+
+
+
+-----------------update table-----------------------------
+update emp set status="unmarid" where subject="maths";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+update emp set status="marid" where empname="sham";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+select * from emp;
++-------+---------+------------+----------+--------+---------+
+| empid | empname | empno      | subject  | salary | status  |
++-------+---------+------------+----------+--------+---------+
+|     1 | karan   | 9921653042 | maths    |   1000 | unmarid |
+|     2 | eam     | 8149437408 | marathi  |   2000 | NULL    |
+|     3 | sham    | 8520124596 | hindi    |   3000 | marid   |
+|     4 | jon     | 7845129663 | english  |   4000 | NULL    |
+|     5 | kevu    | 1245464875 | sanskrit |   5000 | NULL    |
++-------+---------+------------+----------+--------+---------+
+5 rows in set (0.00 sec)
+
+
+
+---------------------where condition--------------------
+
+mysql> select * from emp where salary>=4000;
++-------+---------+------------+----------+--------+--------+
+| empid | empname | empno      | subject  | salary | status |
++-------+---------+------------+----------+--------+--------+
+|     4 | jon     | 7845129663 | english  |   4000 | NULL   |
+|     5 | kevu    | 1245464875 | sanskrit |   5000 | NULL   |
++-------+---------+------------+----------+--------+--------+
+2 rows in set (0.00 sec)
+
+
+
+mysql> select * from emp where salary<=4000;
++-------+---------+------------+---------+--------+---------+
+| empid | empname | empno      | subject | salary | status  |
++-------+---------+------------+---------+--------+---------+
+|     1 | karan   | 9921653042 | maths   |   1000 | unmarid |
+|     2 | eam     | 8149437408 | marathi |   2000 | NULL    |
+|     3 | sham    | 8520124596 | hindi   |   3000 | marid   |
+|     4 | jon     | 7845129663 | english |   4000 | NULL    |
++-------+---------+------------+---------+--------+---------+
+4 rows in set (0.00 sec)
+
+
+mysql> select * from emp where salary<>4000;
++-------+---------+------------+----------+--------+---------+
+| empid | empname | empno      | subject  | salary | status  |
++-------+---------+------------+----------+--------+---------+
+|     1 | karan   | 9921653042 | maths    |   1000 | unmarid |
+|     2 | eam     | 8149437408 | marathi  |   2000 | NULL    |
+|     3 | sham    | 8520124596 | hindi    |   3000 | marid   |
+|     5 | kevu    | 1245464875 | sanskrit |   5000 | NULL    |
++-------+---------+------------+----------+--------+---------+
+4 rows in set (0.00 sec)
+
+
+mysql> select * from emp where empid=2 and subject="marathi";
++-------+---------+------------+---------+--------+--------+
+| empid | empname | empno      | subject | salary | status |
++-------+---------+------------+---------+--------+--------+
+|     2 | eam     | 8149437408 | marathi |   2000 | NULL   |
++-------+---------+------------+---------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp where subject like"h%";
++-------+---------+------------+---------+--------+--------+
+| empid | empname | empno      | subject | salary | status |
++-------+---------+------------+---------+--------+--------+
+|     3 | sham    | 8520124596 | hindi   |   3000 | marid  |
++-------+---------+------------+---------+--------+--------+
+
+
+mysql> select * from emp where subject like"%i";
++-------+---------+------------+---------+--------+--------+
+| empid | empname | empno      | subject | salary | status |
++-------+---------+------------+---------+--------+--------+
+|     2 | eam     | 8149437408 | marathi |   2000 | NULL   |
+|     3 | sham    | 8520124596 | hindi   |   3000 | marid  |
++-------+---------+------------+---------+--------+--------+
+
+
+
+-------------------------------group by--------------------------------------------------
+mysql> select empid,empname,empno,subject,salary,status 
+       from emp where subject="marathi" 
+	   group by  empid,empname,empno,subject,salary,status;
++-------+---------+------------+---------+--------+--------+
+| empid | empname | empno      | subject | salary | status |
++-------+---------+------------+---------+--------+--------+
+|     2 | eam     | 8149437408 | marathi |   2000 | NULL   |
++-------+---------+------------+---------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp
+    -> where subject="english"
+    -> group by empid,empname,empno,subject,salary,status
+    -> ;
++-------+---------+------------+---------+--------+--------+
+| empid | empname | empno      | subject | salary | status |
++-------+---------+------------+---------+--------+--------+
+|     4 | jon     | 7845129663 | english |   4000 | NULL   |
++-------+---------+------------+---------+--------+--------+
+1 row in set (0.00 sec)
+
+-------------------------------------order by--------------------------------------------
+
+mysql> select * from emp where status="unmarid" order by empid;
++-------+---------+------------+---------+--------+---------+
+| empid | empname | empno      | subject | salary | status  |
++-------+---------+------------+---------+--------+---------+
+|     1 | karan   | 9921653042 | maths   |   1000 | unmarid |
+|     4 | jon     | 7845129663 | english |   4000 | unmarid |
++-------+---------+------------+---------+--------+---------+
+2 rows in set (0.02 sec)
+
+
+----------------------------distinct function---------------------------------------
+select distinct status from emp;
++---------+
+| status  |
++---------+
+| unmarid |
+| NULL    |
+| marid   |
++---------+
+3 rows in set (0.00 sec)
+
